@@ -5,14 +5,36 @@ import java.awt.BorderLayout;
 import java.io.*;
 
 class ex3 {
+	private JMenu menu;
 
 	public void readAndDisplayFile(JFrame f) {
-		try (Reader in = new FileReader("./awt.md")) {
-			String s = in.readAllAsString();
-			JTextArea t = new JTextArea(s);
-			t.setLineWrap(true);
+		JTextArea t = new JTextArea();
+		JMenuBar menuBar;
+		JMenu menu;
+		menuBar = new JMenuBar();
+		menu = new JMenu(); // initialize just in case
 
-			f.add(t);
+		f.setJMenuBar(menuBar);
+		f.setVisible(true);
+		t.setLineWrap(true);
+		f.add(t);
+		try (FileReader in = new FileReader("./entree")) {
+			BufferedReader buffered_in = new BufferedReader(in);
+			String s = buffered_in.readLine();
+			int count = 0;
+			while (s != null) {
+				if (count % 3 == 0) { // menu
+					menu = new JMenu(s);
+					menuBar.add(menu);
+				} else { // menu item
+					JMenuItem menuItem;
+					menuItem = new JMenuItem(s);
+					menu.add(menuItem);
+				}
+				t.append(s + "\n");
+				s = buffered_in.readLine();
+				count++;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -29,17 +51,6 @@ class ex3 {
 		f.add(b2, BorderLayout.EAST);
 		instance.readAndDisplayFile(f);
 
-		JMenuBar menuBar;
-		JMenu menu;
-		JMenuItem menuItem;
-		menuBar = new JMenuBar();
-		menu = new JMenu("A Menu");
-		menuBar.add(menu);
-		menuItem = new JMenuItem("my menu item");
-		menu.add(menuItem);
-
-		f.setJMenuBar(menuBar);
-		f.setVisible(true);
 	}
 
 }
