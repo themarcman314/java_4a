@@ -5,12 +5,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.awt.Dimension;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.*;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class ex4 extends JFrame implements ActionListener {
 	private JButton buttons[];
