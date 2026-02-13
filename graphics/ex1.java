@@ -1,18 +1,27 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 class ex1 extends JFrame implements ActionListener {
 	private JButton[] buttongrid;
+	private JComboBox comboBox;
+	private JPanel top_panel;
+	private JPanel bottom_panel;
 
 	public ex1(final Color start) {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		top_panel = new JPanel(new GridLayout(8, 8));
+		add(top_panel, BorderLayout.CENTER);
+		bottom_panel = new JPanel(new BorderLayout());
+		add(bottom_panel, BorderLayout.SOUTH);
 		setSize(500, 500);
-		setLayout(new GridLayout(8, 8));
 		Color c = new Color(start.getRGB());
 		buttongrid = new JButton[64];
 		int steps = buttongrid.length;
@@ -24,7 +33,7 @@ class ex1 extends JFrame implements ActionListener {
 			int b = Math.round(start.getBlue() + t * (255 - start.getBlue()));
 			c = new Color(r, g, b);
 			buttongrid[index].setBackground(c);
-			add(buttongrid[index]);
+			top_panel.add(buttongrid[index]);
 		}
 		setVisible(true);
 	}
