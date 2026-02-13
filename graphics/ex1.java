@@ -20,8 +20,44 @@ class ex1 extends JFrame implements ActionListener {
 		top_panel = new JPanel(new GridLayout(8, 8));
 		add(top_panel, BorderLayout.CENTER);
 		bottom_panel = new JPanel(new BorderLayout());
+		String[] color_strings = { "green", "red", "blue" };
+		comboBox = new JComboBox(color_strings);
+		comboBox.addActionListener(this);
+		bottom_panel.add(comboBox);
 		add(bottom_panel, BorderLayout.SOUTH);
+
+		setColor(new Color(0, 255, 0));
 		setSize(500, 500);
+		setVisible(true);
+	}
+
+	public static void main(String[] args) {
+		Color starting_color = new Color(0, 255, 0);
+		new ex1(starting_color);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		JComboBox cb = (JComboBox) e.getSource();
+		String selected_box = (String) cb.getSelectedItem();
+		switch (selected_box) {
+			case "green":
+				setColor(new Color(0, 255, 0));
+				break;
+			case "red":
+				setColor(new Color(255, 0, 0));
+				break;
+			case "blue":
+				setColor(new Color(0, 0, 255));
+				break;
+			default:
+				break;
+		}
+
+	}
+
+	void setColor(final Color start) {
+		top_panel.removeAll();
 		Color c = new Color(start.getRGB());
 		buttongrid = new JButton[64];
 		int steps = buttongrid.length;
@@ -35,17 +71,7 @@ class ex1 extends JFrame implements ActionListener {
 			buttongrid[index].setBackground(c);
 			top_panel.add(buttongrid[index]);
 		}
-		setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		Color starting_color = new Color(0, 255, 0);
-		new ex1(starting_color);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
+		top_panel.revalidate();
+		top_panel.repaint();
 	}
 }
